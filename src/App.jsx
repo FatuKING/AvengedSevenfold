@@ -1,6 +1,23 @@
+import { useState } from "react"
+import { ModalMeme } from "./modal/ModalMeme.jsx"
+import confetti from "canvas-confetti"
+
 function App() {
-  const btnDecline = () => {
-    
+  const [activeModal, setActiveModal] = useState(false)
+   const [activeModal2, setActiveModal2] = useState(false)
+  const showModal = () => {
+    setActiveModal(!activeModal)
+    if (!activeModal) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      })
+    }
+  }
+
+    const showModal2 = () => {
+    setActiveModal2(!activeModal2)
   }
   
   return (
@@ -17,11 +34,13 @@ function App() {
         <h2>¿Asistirás?</h2>
 
         <div className="buttonsSelector">
-          <a href="https://wa.me/1122836655?text=%C2%A1S%C3%AD%21%20Me%20encantar%C3%ADa%20ir%20al%20recital" target="_blank"><button>Sí</button></a>
+          <button onClick={showModal}>Sí</button>
 
-          <button onClick={btnDecline}>No</button>
+          <button onClick={showModal2}>No</button>
         </div>
 
+        {activeModal && <ModalMeme meme={'/meme2.jpg'} />}
+        {activeModal2 && <ModalMeme meme={'/meme.jpg'} />}
       </main>
     </>
   )
